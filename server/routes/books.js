@@ -28,6 +28,10 @@ router.get('/', function(req, res) {
   });
 });
 
+router.get('/:genre', function (req, res) {
+  console.log('Get by:' + req.params.genre);
+});
+
 router.post('/', function(req, res) {
   var newBook = req.body;
   pg.connect(connectionString, function(err, client, done) {

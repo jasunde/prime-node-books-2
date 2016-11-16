@@ -7,6 +7,8 @@ $(document).ready(function () {
     $("#book-list").on('click', '.delete', deleteBook);
     // update a book
     $("#book-list").on('click', '.update', updateBook);
+    // filter books by genre
+    $('#genreButton').on('click', getGenre);
 });
 /**
  * Retrieve books from server and append to DOM
@@ -23,6 +25,25 @@ function getBooks() {
     }
 
   })
+}
+/**
+ * Retrieve books of a specific genre from server and append to DOM
+ */
+function getGenre() {
+  var genre = $('#selectGenre').val();
+
+  if(genre) {
+    $.ajax({
+      type: 'GET',
+      url: '/books/' + genre,
+      success: function (books) {
+        appendBooks(books);
+      },
+      error: function (result) {
+        console.log('could not get books by genre');
+      }
+    });
+  }
 }
 /**
  * Add a new book to the database and refresh the DOM
