@@ -164,16 +164,16 @@ function appendBooks(books) {
 
     var $row1 = $('<div class="row"></div>');
     $el.append($row1);
-    $row1.append(createInput('text', 'title', book.title, 'col-md-6'));
-    $row1.append(createInput('text', 'author', book.author, 'col-md-5'));
+    $row1.append(createInput('text', 'title', book.title, 'col-sm-6'));
+    $row1.append(createInput('text', 'author', book.author, 'col-sm-6'));
     // Edit and Delete buttons
     $row1.append('<div class="form-group buttons col-md-1"><div class="btn-group btn-group-xs"><button class="update btn btn-warning"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button><button class="delete btn btn-danger"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></div></div>');
 
     var $row2 = $('<div class="row"></div>');
     $el.append($row2);
-    $row2.append(createInput('text', 'genre', book.genre, 'col-md-3'));
-    $row2.append(createInput('date', 'published', convertedDate, 'col-md-3'));
-    $row2.append(createInput('text', 'edition', book.edition, 'col-md-1'));
-    $row2.append(createInput('text', 'publisher', book.publisher, 'col-md-5'));
+    $row2.append(createInput('text', 'genre', book.genre, 'col-sm-3'));
+    $row2.append(createInput('date', 'published', convertedDate, 'col-sm-3'));
+    $row2.append(createInput('text', 'edition', book.edition, 'col-sm-1'));
+    $row2.append(createInput('text', 'publisher', book.publisher, 'col-sm-5'));
   }
 }
