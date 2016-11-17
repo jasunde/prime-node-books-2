@@ -37,6 +37,7 @@ function getGenre() {
       type: 'GET',
       url: '/books/' + genre,
       success: function (books) {
+        console.log(books);
         appendBooks(books);
       },
       error: function (result) {
