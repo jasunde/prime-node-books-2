@@ -1,5 +1,7 @@
-h1 {
+body{
   font-family: 'Taviraj', serif;
+}
+h1 {
   color: indigo;
 }
 
@@ -7,8 +9,32 @@ h2 {
   color: gray;
 }
 
-.book {
-  border: 1px solid magenta;
+.book{
+  /*border: 1px solid magenta;*/
+  border-radius: 4px;
+  padding-top: 10px;
   margin-bottom: 12px;
-  padding: 10px;
+}
+
+.book .row {
+  margin: 0;
+  position: relative;
+}
+
+.book .btn {
+  width: 50%;
+}
+
+.book .btn-group {
+  width: 100%;
+}
+
+.book .buttons {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+#genreButton {
+  width: 100%;
 }
