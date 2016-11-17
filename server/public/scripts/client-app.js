@@ -94,7 +94,6 @@ function deleteBook() {
 
 function updateBook() {
   var id = $(this).closest('.book').data('id');
-  console.log(id);
 
   // make book object
   var book = {};
@@ -119,23 +118,7 @@ function updateBook() {
 
 }
 
-// return an input jQuery object
-function createInput(type, name, value, classes, cols) {
-  var $col = $('<div><div class="form-group"><label></label><input></input></div></div>');
-  $col.addClass(cols)
-  var $input = $col.find('input');
-  var $label = $col.find('label');
-  $input
-    .attr('type', type)
-    .attr('name', name)
-    .val(value)
-    .addClass(classes);
-  $label
-    .attr('for', name)
-    .text(name.charAt(0).toUpperCase() + name.slice(1));
-  return $col;
-}
-
+// Append the genre select element
 function appendSelect(genres) {
   var capitalizedGenre;
   var $select = $('<select name="genre" id="selectGenre" class="form-control"></select>');
@@ -148,6 +131,24 @@ function appendSelect(genres) {
   });
 }
 
+// return an input jQuery object
+function createInput(type, name, value, cols) {
+  var $col = $('<div><div class="form-group"><label></label><input></input></div></div>');
+  $col.addClass(cols)
+  var $input = $col.find('input');
+  var $label = $col.find('label');
+  $input
+    .attr('type', type)
+    .attr('name', name)
+    .val(value)
+    .addClass('form-control');
+  $label
+    .attr('for', name)
+    .text(name.charAt(0).toUpperCase() + name.slice(1));
+  return $col;
+}
+
+// Append all the books
 function appendBooks(books) {
   $("#book-list").empty();
 
@@ -160,28 +161,19 @@ function appendBooks(books) {
 
     var convertedDate = book.published.substr(0, 10);
     var inputClasses = 'form-control';
-    // $el.append('<input type="text" name="title" value="' + book.title + '" />');
+
     var $row1 = $('<div class="row"></div>');
     $el.append($row1);
-    $row1.append(createInput('text', 'title', book.title, inputClasses, 'col-md-6'));
-    $row1.append(createInput('text', 'author', book.author, inputClasses, 'col-md-5'));
+    $row1.append(createInput('text', 'title', book.title, 'col-md-6'));
+    $row1.append(createInput('text', 'author', book.author, 'col-md-5'));
+    // Edit and Delete buttons
     $row1.append('<div class="form-group buttons col-md-1"><div class="btn-group btn-group-xs"><button class="update btn btn-warning"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button><button class="delete btn btn-danger"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></div></div>');
 
     var $row2 = $('<div class="row"></div>');
     $el.append($row2);
-    $row2.append(createInput('text', 'genre', book.genre, inputClasses, 'col-md-3'));
-
-    // var newDate = $('<input type="date" name="published" />');
-    // newDate.val(convertedDate)
-    $row2.append(createInput('date', 'published', convertedDate, inputClasses, 'col-md-3'));
-
-    $row2.append(createInput('text', 'edition', book.edition, inputClasses, 'col-md-1'));
-    $row2.append(createInput('text', 'publisher', book.publisher, inputClasses, 'col-md-5'));
-    // $el.append('<input type="text" name="author" value="' + book.author + '" />');
-    // $el.append('<input type="text" name="genre" value="' + book.genre + '" />');
-    // $el.append('<input type="number" name="edition" value="' + book.edition + '" />');
-    // $el.append('<input type="text" name="publisher" value="' + book.publisher + '" />');
-
-
+    $row2.append(createInput('text', 'genre', book.genre, 'col-md-3'));
+    $row2.append(createInput('date', 'published', convertedDate, 'col-md-3'));
+    $row2.append(createInput('text', 'edition', book.edition, 'col-md-1'));
+    $row2.append(createInput('text', 'publisher', book.publisher, 'col-md-5'));
   }
 }

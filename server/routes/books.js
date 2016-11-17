@@ -3,9 +3,10 @@ var router = express.Router();
 var pg = require('pg');
 var connectionString = 'postgres://localhost:5432/sigma';
 
+
+// get books and distinct genres from DB
 router.get('/', function(req, res) {
   console.log('get request');
-  // get books from DB
   pg.connect(connectionString, function(err, client, done) {
     if(err) {
       console.log('connection error: ', err);
@@ -13,6 +14,7 @@ router.get('/', function(req, res) {
     }
     var data = {};
 
+    // Select all books
     client.query('SELECT * FROM books', function(err, result) {
 
       if(err) {
@@ -20,13 +22,11 @@ router.get('/', function(req, res) {
         res.sendStatus(500);
       }
       data.books = result.rows;
-
     });
 
+    // Select each distinct genre
     client.query('SELECT DISTINCT genre FROM books', function(err, result) {
       done(); // close the connection.
-
-      // console.log('the client!:', client);
 
       if(err) {
         console.log('select query error: ', err);
@@ -40,6 +40,7 @@ router.get('/', function(req, res) {
   });
 });
 
+// Get all books one particular genre
 router.get('/:genre', function (req, res) {
   pg.connect(connectionString, function (err, client, done) {
     if(err) {
@@ -63,6 +64,7 @@ router.get('/:genre', function (req, res) {
   })
 });
 
+// Add a new book to the database
 router.post('/', function(req, res) {
   var newBook = req.body;
   pg.connect(connectionString, function(err, client, done) {
@@ -90,6 +92,7 @@ router.post('/', function(req, res) {
 
 });
 
+// Delete a book
 router.delete('/:id', function(req, res) {
   bookID = req.params.id;
 
@@ -116,6 +119,8 @@ router.delete('/:id', function(req, res) {
 
 });
 
+
+// Update a book
 router.put('/:id', function(req, res) {
   bookID = req.params.id;
   book = req.body;
