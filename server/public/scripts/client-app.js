@@ -17,8 +17,9 @@ function getBooks() {
   $.ajax({
     type: 'GET',
     url: '/books',
-    success: function(books) {
-      appendBooks(books);
+    success: function(data) {
+      appendSelect(data.genres);
+      appendBooks(data.books);
     },
     error: function() {
       console.log('Database error');
@@ -135,6 +136,18 @@ function createInput(type, name, value, classes, cols) {
   return $col;
 }
 
+function appendSelect(genres) {
+  var capitalizedGenre;
+  var $select = $('<select name="genre" id="selectGenre" class="form-control"></select>');
+  $('#genreDiv').empty();
+  $('#genreDiv').append($select);
+  $select.append('<option value="" selected>Select Genre</option>');
+  genres.forEach(function (current) {
+    capitalizedGenre = current.genre.charAt(0).toUpperCase() + current.genre.slice(1);
+    $select.append('<option value="' + current.genre +'">' + capitalizedGenre +'</option>');
+  });
+}
+
 function appendBooks(books) {
   $("#book-list").empty();
 
@@ -152,16 +165,7 @@ function appendBooks(books) {
     $el.append($row1);
     $row1.append(createInput('text', 'title', book.title, inputClasses, 'col-md-6'));
     $row1.append(createInput('text', 'author', book.author, inputClasses, 'col-md-5'));
-
-    $row1.append('<div class="form-group buttons col-md-1">'+
-    '<div class="btn-group btn-group-xs">'+
-    '<button class="update btn btn-warning">'+
-      '<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>'+
-    '</button>'+
-    '<button class="delete btn btn-danger">'+
-      '<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>'+
-    '</button>'+
-    '</div></div>');
+    $row1.append('<div class="form-group buttons col-md-1"><div class="btn-group btn-group-xs"><button class="update btn btn-warning"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button><button class="delete btn btn-danger"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></div></div>');
 
     var $row2 = $('<div class="row"></div>');
     $el.append($row2);

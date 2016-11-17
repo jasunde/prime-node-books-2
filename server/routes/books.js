@@ -11,8 +11,19 @@ router.get('/', function(req, res) {
       console.log('connection error: ', err);
       res.sendStatus(500);
     }
+    var data = {};
 
     client.query('SELECT * FROM books', function(err, result) {
+
+      if(err) {
+        console.log('select query error: ', err);
+        res.sendStatus(500);
+      }
+      data.books = result.rows;
+
+    });
+
+    client.query('SELECT DISTINCT genre FROM books', function(err, result) {
       done(); // close the connection.
 
       // console.log('the client!:', client);
@@ -21,8 +32,9 @@ router.get('/', function(req, res) {
         console.log('select query error: ', err);
         res.sendStatus(500);
       }
-      res.send(result.rows);
 
+      data.genres = result.rows;
+      res.send(data);
     });
 
   });
